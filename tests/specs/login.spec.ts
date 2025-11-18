@@ -1,21 +1,16 @@
 import { test, expect } from '@playwright/test';
-import {LoginPage} from '../pages/loginPage'
+import { LoginPage } from '../pages/loginPage';
 
 test('login', async ({ page }) => {
+  const loginPage = new LoginPage(page);
 
-  const Login = new LoginPage(page)
+  await loginPage.navigate(); 
+  
+  await expect(page).toHaveTitle("Login | Cal.com1");
 
-  await page.goto('http://host.docker.internal:3000/auth/login'); //  http://localhost:3000/auth/login    http://host.docker.internal:3000/auth/login
- 
-  await expect(page).toHaveTitle("Login | Cal.com1")
+  await loginPage.enterUserName('enterprise-member-11@example.com');
+  await loginPage.enterPassword('Vanda');
+  await loginPage.clickLoginButton();
 
-  await Login.enterUserName('enterprise-member-11@example.com')
-  await Login.enterPassword('Vanda')
-  await Login.clickLoginButton()
-
-  await page.pause()
-
- 
+  await page.pause();
 });
-
-
