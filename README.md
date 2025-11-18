@@ -4,28 +4,28 @@ This repository contains automated tests for the Cal.com project.
 
 // What You Need to Run
 
-1 Node.js (version 18+)
-2 Git
-3 Docker (for Cal.com database)
-4 Playwright 
+- Node.js (version 18+)
+- Git
+- Docker (for Cal.com database)
+- Playwright 
 
 // How to Install
 
-1 Clone the repo: 
-2 Install packages:
+- Clone the repo: 
+- Install packages:
    npm install
-3 Set up Cal.com locally 
-4 Set up Playwright:
+- Set up Cal.com locally 
+- Set up Playwright:
    
 
 // How to Run Tests
 
-1 All tests: npx playwright test
-2 Report: npx playwright show-report
-3 Specific file: npx playwright test ./tests/specs/example.spec.ts
-4 In Chrome: npx playwright test --project=chromium
-5 With visible browser: npx playwright test --project=chromium --headed
-6 In debug: npx playwright test --debug
+- All tests: npx playwright test
+- Report: npx playwright show-report
+- Specific file: npx playwright test ./tests/specs/example.spec.ts
+- In Chrome: npx playwright test --project=chromium
+- With visible browser: npx playwright test --project=chromium --headed
+- In debug: npx playwright test --debug
 
 // Structure
 
@@ -43,8 +43,7 @@ This repository contains automated tests for the Cal.com project.
 
 // Test Strategy
 
-1 Testing UI E2E with API.
-2 Tools: Playwright, TypeScript.
-3 Coverage: Only critical path.
-4 Bugs: In Trello.
-
+- Testing UI E2E with API.
+- Tools: Playwright, TypeScript.
+- Coverage: Only critical path.
+- Bugs: In Trello.
