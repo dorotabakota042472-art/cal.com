@@ -35,7 +35,7 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'retain-on-failure', // сохранять трассы только при падении
+    trace: 'retain-on-failure', // сохранять трейс только при падении
     video: 'retain-on-failure', // сохранять видео только при падении
     actionTimeout: 2000 
     
