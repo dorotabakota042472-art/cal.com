@@ -5,12 +5,14 @@ test('login', async ({ page }) => {
 
   const Login = new LoginPage(page)
 
-  await page.goto('https://app.cal.com/auth/login');
+  await page.goto('http://localhost:3000/auth/login');
   await expect(page).toHaveTitle("Login | Cal.com")
 
-  await Login.enterUserName('')
-  await Login.enterPassword('')
-  await Login.clickLoginButton
+  await Login.enterUserName('enterprise-member-11@example.com')
+  await Login.enterPassword('Vanda')
+  await Login.clickLoginButton()
+
+  await page.pause()
 
  
 });

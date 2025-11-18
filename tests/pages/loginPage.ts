@@ -10,17 +10,17 @@ export class LoginPage {
     this.page = page;
     this.username = page.getByRole('textbox', { name: 'john.doe@example.com' });
     this.password = page.getByTestId('input-field');
-    this.loginButton = page.getByTestId('login-form').getByRole('button', { name: 'Sign in' });
+    this.loginButton = page.getByRole('button', { name: 'Sign in' });
   }
 
- async enterUserName(username){
+ async enterUserName(username: string){
     await this.username.fill(username)
 
   }
-  async enterPassword(password){
+  async enterPassword(password: string){
     await this.password.fill(password)
   }
   async clickLoginButton(){
-    await this.loginButton
+    await this.loginButton.click()
   }
 }
