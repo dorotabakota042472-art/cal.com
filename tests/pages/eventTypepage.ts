@@ -6,7 +6,7 @@ export class EvenTypePage extends BasePage {
  
 
   constructor(page: Page) {
-    super(page, 'http://localhost:3000/auth/login'); 
+    super(page, 'http://localhost:3000/event-types'); 
     this.TitleEventTypes = page.getByRole('heading', { name: 'Event Types' })
   }
 

@@ -17,7 +17,7 @@ export default defineConfig({
   },
   testDir: './tests',
   /* Run tests in files in parallel */
-  fullyParallel: true, //true
+  fullyParallel: false, //true
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -25,7 +25,7 @@ export default defineConfig({
   retries: 1, // количество повторных запусков теста в случае его падения.
   /* Opt out of parallel tests on CI. */
   //workers: process.env.CI ? 1 : undefined,
-  workers: 4, // запускаем все тесты по одному
+  workers: 1, //1 запускаем все тесты по одному
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   outputDir: 'tracec', // вот папка для сохранения видео/трейсов
