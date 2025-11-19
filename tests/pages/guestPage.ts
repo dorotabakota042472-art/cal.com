@@ -8,8 +8,8 @@ export class GuestPage extends BasePage {
    readonly name: Locator;
    readonly email: Locator;
    readonly submit: Locator;
-   readonly title: Locator;
    readonly titleScheduled: Locator;
+  readonly firstAvailableTime: Locator;
 
   constructor(guestPage: Page) {
     super(guestPage);
@@ -19,13 +19,18 @@ export class GuestPage extends BasePage {
     this.email = guestPage.getByRole('textbox', { name: 'Email address *' })
     this.submit = guestPage.getByTestId('confirm-book-button')
     this.titleScheduled = guestPage.locator('text=This meeting is scheduled')
+    this.firstAvailableTime = this.page.getByTestId('time').filter({ hasNot: this.page.locator('[data-disabled="true"]') }).first();
 
-    
   }
-  async login(username: string, password: string ) {
-    //await this.username.fill(username);
-   // await this.password.fill(password);
-   // await this.loginButton.click();
+
+   async bookAsGuest(name: string, email: string) {
+    await this.name.fill(name);
+    await this.email.fill(email);
+    await this.submit.click();
+  
   }
+
+  
+  
 }
 

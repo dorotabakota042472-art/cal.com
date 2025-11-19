@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { Application } from '../pages/aplication';
+import { GuestPage } from '../pages/guestPage';
 
 let application: Application;
 
@@ -35,7 +36,6 @@ test.skip('создание event-types', async ({ page }) => {
 
 
 test('Публичное бронирование', async ({ page }) => {
-
   
   // Ждём появления иментов, если они есть, но не падаем
   const buttons = page.locator('button.group[data-testid^="event-type-options-"]:visible');
@@ -73,19 +73,13 @@ const guestPage = await guestContext.newPage();
 await guestPage.goto(publicUrl);
 
 
+// ← Новый GuestPage для гостевой страницы!
+const guest = new GuestPage(guestPage);
+  
+await guest.date.click({ timeout: 10000 });
+await guest.firstAvailableTime.click();
 
-//await guestPage.getByRole('button', { name: '21' }).click({ timeout: 10000 });
-await application.guestPage.date.click({ timeout: 10000 });
-//await guestPage.getByRole('button', { name: '10:00am' }).click();
-await application.guestPage.time.click()
-//await guestPage.getByRole('textbox', { name: 'Your name*' }).fill('Фкеуь');
-await application.guestPage.name.fill('Фкеуь');
-//await guestPage.getByRole('textbox', { name: 'Email address *' }).fill('artem@gmail.com');
-await application.guestPage.email.fill('artem@gmail.com');
-//await guestPage.getByTestId('confirm-book-button').click();
-await application.guestPage.submit.click();
-//await guestPage.getByText('This meeting is scheduled').click({ timeout: 10000 });
-await expect(application.guestPage.titleScheduled).toHaveText('This meeting is scheduled');
-
+await guest.bookAsGuest("aasdasd" , "asdasdasd@gmail.com")
+await expect(guest.titleScheduled).toHaveText('This meeting is scheduled', { timeout: 10000 });
 
 });
