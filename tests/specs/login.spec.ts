@@ -37,8 +37,8 @@ test.describe('Login page tests', () => {
   test.skip('Empty login and password fields', async ({ page }) => {
     await application.loginPage.login('','');
     await expect(page).toHaveURL('http://localhost:3000/auth/login');
-    await expect.soft(application.loginPage.emailValidationError).toHaveText('This field is required.');
-    await expect.soft(application.loginPage.passwordValidationError).toHaveText('This field is required.');
+    await expect(application.loginPage.emailValidationError).toHaveText('This field is required.');
+    await expect(application.loginPage.passwordValidationError).toHaveText('This field is required.');
   });
 
   test.skip('Forgot password flow', async ({ page }) => {

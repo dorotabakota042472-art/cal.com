@@ -38,7 +38,7 @@ export default defineConfig({
     trace: 'retain-on-failure', // сохранять трейс только при падении
     video: 'retain-on-failure', // сохранять видео только при падении
     actionTimeout: 2000,
-    
+    permissions: ['clipboard-read', 'clipboard-write'], //дали доступ на работу с буфером обмена
     
   },
 
