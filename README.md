@@ -34,6 +34,7 @@ This repository contains automated tests for the Cal.com project.
 ├── package.json
 ├── tsconfig.json
 ├── tests/
+├── state/  #  storageState
 │   ├── pages/  # Page classes
 │   ├── fixtures/  # For auth 
 │   ├── utils/  # Helpers
@@ -53,4 +54,8 @@ This repository contains automated tests for the Cal.com project.
 - Build the Docker Image - docker build -t playwright-tests .
 - Run the Docker Container and Execute Tests -  docker run --rm -v ${PWD}/tracec:/app/tracec playwright-tests
 - To look at the report - npx playwright show-report --port=9323
+
+//After cloning the repository and installing dependencies, **be sure** to run
+```bash
+- npx playwright test --project=setup
 
