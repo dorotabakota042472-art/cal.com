@@ -5,23 +5,35 @@ export class LoginPage extends BasePage {
   readonly username: Locator;
   readonly password: Locator;
   readonly loginButton: Locator;
+  readonly passwordValidationError: Locator;
+  readonly emailValidationError: Locator;
+  readonly incorrectEmailPassword: Locator;
+  readonly titleWelcomeBack: Locator;
+  readonly titleEmile: Locator;
+  readonly titlePassword: Locator;
+  readonly titleHaveAccount: Locator;
+  readonly titleSignIn: Locator;
 
   constructor(page: Page) {
-    super(page, 'http://host.docker.internal:3000/auth/login'); 
+    super(page, 'https://app.cal.com/auth/login'); 
     this.username = page.getByRole('textbox', { name: 'john.doe@example.com' });
     this.password = page.getByTestId('input-field');
-    this.loginButton = page.getByRole('button', { name: 'Sign in' });
+    this.loginButton = page.getByTestId('login-form').getByRole('button', { name: 'Sign in' });
+    this.passwordValidationError = page.locator('text=This field is required').nth(1)
+    this.emailValidationError = page.locator('text=This field is required').nth(0)
+    this.incorrectEmailPassword = page.locator('text=Email or password is incorrect')
+
+      this.titleWelcomeBack = page.locator('text=Welcome back')
+      this.titleEmile = page.locator('text=Email address')
+      this.titlePassword = page.locator('text=Password').nth(0)
+      this.titleHaveAccount = page.locator('text=Don\'t have an account?')
+      this.titleSignIn = page.locator('text=Sign in').nth(2)
   }
 
-  async enterUserName(username: string) {
+  async login(username: string, password: string ) {
     await this.username.fill(username);
-  }
-
-  async enterPassword(password: string) {
     await this.password.fill(password);
-  }
-
-  async clickLoginButton() {
     await this.loginButton.click();
   }
+
 }
