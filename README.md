@@ -59,3 +59,6 @@ This repository contains automated tests for the Cal.com project.
 ```bash
 - npx playwright test --project=setup
 
+
+// To Tun API tests in UI mode
+ - Use commanr - npx playwright test ./tests/api/trpc.spec.ts --ui

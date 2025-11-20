@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+  import { defineConfig, devices } from '@playwright/test';
 
 
 /**
@@ -56,10 +56,10 @@ export default defineConfig({
   },
   {
     name: 'authenticated',
-    dependencies: ['setup'],                     // ← важная строчка
+    dependencies: ['setup'],                    
     use: {
       ...devices['Desktop Chrome'],
-      storageState: 'state/auth.json',           // ← только этот путь!
+      storageState: 'state/auth.json',           
     },
   },
 ],
