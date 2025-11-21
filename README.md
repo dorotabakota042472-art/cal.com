@@ -62,3 +62,9 @@ This repository contains automated tests for the Cal.com project.
 
 // To Tun API tests in UI mode
  - Use commanr - npx playwright test ./tests/api/trpc.spec.ts --ui
+
+
+
+ //Установи зависимости: npm i @trpc/client superjson 
+
+

@@ -11,5 +11,10 @@
   "devDependencies": {
     "@playwright/test": "^1.56.1",
     "@types/node": "^24.10.1"
+  },
+  "dependencies": {
+    "@trpc/client": "^11.7.1",
+    "node-fetch": "^2.6.7",
+    "superjson": "^2.2.5"
   }
 }
