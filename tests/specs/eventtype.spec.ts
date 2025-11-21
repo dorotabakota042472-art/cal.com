@@ -5,7 +5,6 @@ import { GuestPage } from '../pages/guestPage';
 let application: Application;
 
 
-
 test.beforeEach(async ({ page }) => {
 
   application = new Application(page);
