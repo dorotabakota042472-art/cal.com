@@ -1,24 +1,27 @@
 
-import { Page } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage';
-import { ForgotPassword } from '../pages/forgotPassword';
-import { Signup } from '../pages/signup';
-import { EvenTypePage } from '../pages/eventTypepage';
-import { GuestPage } from '../pages/guestPage';
+    import { Page } from '@playwright/test';
+    import { LoginPage } from '../pages/loginPage';
+    import { ForgotPassword } from '../pages/forgotPassword';
+    import { Signup } from '../pages/signup';
+    import { EvenTypePage } from '../pages/eventTypepage';
+    import { GuestPage } from '../pages/guestPage';
+    import { Upcoming } from '../pages/upcomingPage';
 
 
-export class Application {
-  readonly loginPage: LoginPage;
-  readonly forgotPassword: ForgotPassword;
-  readonly signup: Signup;
-  readonly evenTypePage: EvenTypePage;
-  readonly guestPage: GuestPage;
+    export class Application {
+      readonly loginPage: LoginPage;
+      readonly forgotPassword: ForgotPassword;
+      readonly signup: Signup;
+      readonly evenTypePage: EvenTypePage;
+      readonly guestPage: GuestPage;
+      readonly upcoming: Upcoming;
 
-  constructor(page: Page, ) {
-    this.loginPage = new LoginPage(page);
-    this.forgotPassword = new ForgotPassword(page);
-    this.signup = new Signup(page);
-    this.evenTypePage = new EvenTypePage(page);
-    this.guestPage = new GuestPage(page);
-  }
-}
+      constructor(page: Page, ) {
+        this.loginPage = new LoginPage(page);
+        this.forgotPassword = new ForgotPassword(page);
+        this.signup = new Signup(page);
+        this.evenTypePage = new EvenTypePage(page);
+        this.guestPage = new GuestPage(page);
+        this.upcoming = new Upcoming(page);
+      }
+    }

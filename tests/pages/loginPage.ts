@@ -1,5 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './basePage';
+import { expect } from '@playwright/test';
+
 
 export class LoginPage extends BasePage {
   readonly username: Locator;
@@ -21,7 +23,7 @@ export class LoginPage extends BasePage {
    readonly forgot: Locator;
 
   constructor(page: Page) {
-    super(page, 'http://localhost:3000/auth/login');  //http://localhost:3000/auth/login   http://host.docker.internal:3000/auth/login https://app.cal.com/auth/login
+    super(page, 'https://app.cal.com/auth/login');  //http://localhost:3000/auth/login   http://host.docker.internal:3000/auth/login https://app.cal.com/auth/login
     this.username = page.getByRole('textbox', { name: 'john.doe@example.com' });
     this.password = page.getByTestId('input-field');
     this.loginButton = page.getByTestId('login-form').getByRole('button', { name: 'Sign in' });
@@ -40,14 +42,16 @@ export class LoginPage extends BasePage {
       this.hideeye = page.getByRole('button', { name: 'Hide password' }).locator('use'); 
       this.showeye = page.getByRole('button', { name: 'Show password' }).locator('use'); 
       this.forgot = page.getByRole('link', { name: 'Forgot?' })
-      
-      
-     
+ 
   }
   async login(username: string, password: string ) {
     await this.username.fill(username);
     await this.password.fill(password);
     await this.loginButton.click();
+  }
+
+  async checkLoginPageUrl() {
+    await expect(this.page).toHaveURL('https://app.cal.com/auth/login');
   }
 
 }

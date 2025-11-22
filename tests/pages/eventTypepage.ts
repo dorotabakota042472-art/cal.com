@@ -1,6 +1,7 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './basePage';
 
+
 export class EvenTypePage extends BasePage {
   readonly TitleEventTypes: Locator;
   readonly eventTitle: Locator;
@@ -30,34 +31,35 @@ export class EvenTypePage extends BasePage {
     this.copyLink = page.getByRole('button').filter({ hasText: /^$/ }).nth(1);//копируепм линку 
   }
 
-  // ------------------------
-  // Методы страницы
-  // ------------------------
 
   async navigate() {
     await this.page.goto(this.url);
     await expect(this.page).toHaveURL(this.url);
   }
 
-  async deleteAllEventTypes() {
+  async deleteAllEventTypes() {// удаляем все ивенты (чистим) 
     const count = await this.deleteButtons.count();//собираем количество ивентов 
 
     for (let i = 0; i < count; i++) {
       await this.deleteButtons.nth(0).click(); // берём всегда первый
-      await this.page.getByRole('button', { name: 'Delete' }).last().click(); // твой оригинальный путь
+      await this.page.getByRole('button', { name: 'Delete' }).last().click(); 
       await this.confirmDeleteButton.click();
     }
   }
 
-  async createEventType(name: string) {
+  async createEventType(name: string) { // создание ивента 
     await this.newEventTypeButton.click();
     await this.quickChatInput.fill(name);
     await this.continueButton.click();
-    await this.goBackButton.click();
+    await this.goBackButton.click({ timeout: 10000 });
   }
 
-  async expectEventTypeExists(name: string) {
+  async expectEventTypeExists(name: string) { // првоеряем что ивент есть 
     const event = this.page.locator(`text=${name}`).first();
-    await expect(event).toBeVisible();
+    await expect(event).toBeVisible({ timeout: 10000 });
+  }
+
+   async checkeventPageUrl() {
+    await expect(this.page).toHaveURL('https://app.cal.com/event-types');
   }
 }

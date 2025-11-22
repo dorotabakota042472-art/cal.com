@@ -1,31 +1,80 @@
-import { test, expect } from '@playwright/test';
-import fs from 'fs';
-import path from 'path';
+import { test, expect, request } from '@playwright/test';
 
-const envPath = path.resolve(process.cwd(), '.env');
-const apiKey = fs.readFileSync(envPath, 'utf-8')
-  .split('\n')
-  .find(l => l.trim().startsWith('CAL_COM_API_KEY='))
-  ?.split('=')[1]
-  ?.trim();
+test('tRPC: get event types', async () => {
+  const api = await request.newContext({ storageState: 'state/auth.json',}); // Создаём новый контекст API-запросов с сохранённой сессией 
+  
+  const input = {
+    "0": {
+      json: {
+        group: {
+          teamId: null,
+          parentId: null
+        },
+        searchQuery: "",
+        limit: 10
+      }
+    }
+  };
 
-test('создание event type через REST v2 — с правильным location type', async ({ request }) => {
-  const response = await request.post('https://api.cal.com/v2/event-types', {
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,  
-      'cal-api-version': '2024-06-14',   
-    },
-    data: {
-      title: `P"Learn the secrets of masterc1hief!111"`,
-      slug: `"P"Learn the secrets of masterc1hief!111"`,
-      lengthInMinutes: 60, 
-    },
+  const response = await api.get('https://app.cal.com/api/trpc/eventTypes/getEventTypesFromGroup', //делаем запрос на получение ивентов 
+    {
+      params: {
+        batch: 1,
+        input: JSON.stringify(input),
+      },
+      headers: {
+        "content-type": "application/json",
+        "Accept": "*/*",
+      },
+    }
+  );
+
+  console.log("STATUS:", response.status());// смотрим status code 
+  const json = await response.json();
+  console.log("RESPONSE:", JSON.stringify(json));//превращает объект в строку
+
+  expect(response.ok()).toBeTruthy();// проверяем что запрос успешен
+});
+
+
+test('tRPC: create event type', async ({}) => {
+
+  const api = await request.newContext({
+    storageState: 'state/auth.json', // путь auth.json
   });
 
-  console.log('Status:', response.status());
+ 
+  const input = {
+    "0": {
+      json: {
+        title: "Автотест Ивент"+ Date.now(),
+        slug: "auto-event-" + Date.now(),
+        description: "description" + Date.now(),
+        length: 15,
+        metadata: null
+      }
+    }
+  };
+
+  
+  const response = await api.post( 'https://app.cal.com/api/trpc/eventTypesHeavy/create?batch=1', // POST запрос на tRPC endpoint создания ивента
+    {
+      data: input,
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+
+  expect(response.ok()).toBeTruthy();
+
   const json = await response.json();
-  console.log(json);
+  console.log('TRPC Response:', JSON.stringify(json));
 
+  const event = json[0]?.result?.data?.json;
 
-  expect(response.status()).toBe(201);
+  expect(event.eventType.title).toContain("Автотест");
+  expect(event.eventType.slug).toContain("event");
+  expect(event.eventType.description).toContain("description");
+ 
 });

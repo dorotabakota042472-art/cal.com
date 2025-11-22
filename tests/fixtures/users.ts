@@ -1,0 +1,19 @@
+const timestamp = Date.now(); // уникальное число для каждого запуска
+export type User = {
+  email: string;
+  password: string;
+  username: string;
+};
+
+export const users: Record<string, User> = {
+  admin: {
+    email: 'janvandam933@gmail.com', //  enterprise-member-11@example.com
+    password: 'Aa80502558314', //    Vanda
+    username: `string_${timestamp}`,
+  },
+  user1: {
+    email: 'user1@example.com',
+    password: 'Password123',
+    username: `string_${timestamp}`,
+  },
+};

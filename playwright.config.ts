@@ -44,25 +44,74 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
-  projects: [
+//   projects: [
+//   {
+//     name: 'setup',
+//     testMatch: 'auth.setup.ts',
+//   },
+//   {
+//     name: 'no-auth',
+//     testMatch: 'login.spec.ts',
+//     use: { ...devices['Desktop Chrome'] },
+//   },
+//   {
+//     name: 'authenticated',
+//     dependencies: ['setup'],                    
+//     use: {
+//       ...devices['Desktop Chrome'],
+//       storageState: 'state/auth.json',           
+//     },
+//   },
+// ],
+projects: [
+  // ---------------------------------------
+  // 1) SETUP — только авторизация
+  // ---------------------------------------
   {
     name: 'setup',
-    testMatch: 'auth.setup.ts',
+    testMatch: /auth\.setup\.ts/,
   },
+
+  // ---------------------------------------
+  // 2) ПРОЕКТ ДЛЯ login.spec.ts — БЕЗ аутентификации
+  // ---------------------------------------
   {
     name: 'no-auth',
-    testMatch: 'login.spec.ts',
-    use: { ...devices['Desktop Chrome'] },
-  },
-  {
-    name: 'authenticated',
-    dependencies: ['setup'],                    
+    testMatch: [/tests\/specs\/login\.spec\.ts/,  /tests\/api\/publicApi\.spec\.ts/],
     use: {
       ...devices['Desktop Chrome'],
-      storageState: 'state/auth.json',           
+    },
+  },
+
+  // ---------------------------------------
+  // 3) ПРОЕКТ ДЛЯ eventtype.spec.ts — НУЖНА АВТОРИЗАЦИЯ
+  // ---------------------------------------
+  {
+    name: 'eventtype-auth',
+    testMatch: [/tests\/specs\/eventtype\.spec\.ts/, /tests\/api\/tRPC\.spec\.ts/, /tests\/api\/tRPCmockData\.spec\.ts/,
+      /tests\/api\/trpc3\.spec\.ts/
+     ],
+    dependencies: ['setup'],        // запускаем setup перед тестами
+    use: {
+      ...devices['Desktop Chrome'],
+      storageState: 'state/auth.json', // используем сохранённую сессию
+    },
+  },
+
+  // ---------------------------------------
+  // 4) ПРОЕКТ ДЛЯ остальных авторизованных тестов (если есть)
+  // ---------------------------------------
+  {
+    name: 'authenticated',
+    testMatch: [/tests\/specs\/authenticated\/.*\.spec\.ts/],
+    dependencies: ['setup'],
+    use: {
+      ...devices['Desktop Chrome'],
+      storageState: 'state/auth.json',
     },
   },
 ],
+
 
   /* Run your local dev server before starting the tests */
   // webServer: {

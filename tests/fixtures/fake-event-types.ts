@@ -109,3 +109,25 @@ export function generateFakeEventTypes(count: number): FakeEventType[] {
 
   return list;
 }
+
+export const fakeLongDescriptionEvent: FakeEventType = {
+  id: 1,
+  title: "Ванда ".repeat(20), // очень длинный title
+  description: "Ванда ".repeat(20),
+  safeDescription: "Ванда ".repeat(20),
+  slug: 'long-description-event',
+  length: 30,
+  teamId: null,
+  schedulingType: null,
+  userId: 1928186,
+  metadata: {},
+  hidden: false,
+  position: 0,
+  owner: { timeZone: "Europe/Kiev" },
+  users: [],
+  children: [],
+  hosts: [],
+  locations: [],
+};
+
+
