@@ -13,7 +13,6 @@ export class Signup extends BasePage {
 
   constructor(page: Page) {
     super(page, 'https://app.cal.com/auth/login');  //http://localhost:3000/auth/login   http://host.docker.internal:3000/auth/login https://app.cal.com/auth/login
-   
       this.signupUsernamefield = page.getByTestId('signup-usernamefield')
       this.signupEmailfield = page.getByTestId('signup-emailfield')
       this.signupPasswordfield = page.getByTestId('signup-passwordfield')
@@ -21,8 +20,6 @@ export class Signup extends BasePage {
       this.checkYourEmail = page.locator('text=Check your email')
       this.submitButton = page.getByTestId('signup-submit-button')
       this.continueWithEmailButton = page.getByTestId('continue-with-email-button')
-
-      
   }
   
    async signup(username: string, password: string , email: string) {
@@ -31,6 +28,4 @@ export class Signup extends BasePage {
     await this.signupEmailfield.fill(email);
     await this.signupCookieContentCheckbox.click();
   }
-
- 
 }
