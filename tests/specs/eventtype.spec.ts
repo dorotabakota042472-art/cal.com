@@ -13,10 +13,8 @@ test.beforeEach(async ({ page }) => {
   application = new Application(page);
   await application.evenTypePage.navigate();
   await application.evenTypePage.checkeventPageUrl
-});
 
-test.skip('Create event-types', async ({ page }) => {
-  // Ждём появления ивентов, если они есть, но не падаем
+// Ждём появления ивентов, если они есть, но не падаем
   try {
     await application.evenTypePage.deleteButtons.first().waitFor({ state: 'visible', timeout: 3000 });// проверяем есть ли ивенты , если нет тест не падает 
   } catch {
@@ -25,6 +23,9 @@ test.skip('Create event-types', async ({ page }) => {
 
   // Удаляем все существующие ивенты
   await application.evenTypePage.deleteAllEventTypes();
+});
+
+test('Create event-types', async ({ page }) => {
 
   // Создаём новый ивент
   const newEventName : string = `string_${timestamp}`;
@@ -37,17 +38,6 @@ test.skip('Create event-types', async ({ page }) => {
 
 
 test('Public booking flow', async ({ page }) => {
-  
-  // Ждём появления ивентов, если они есть, но не падаем
-  try {
-    await application.evenTypePage.deleteButtons.first().waitFor({ state: 'visible', timeout: 3000 });// проверяем есть ли ивенты , если нет тест не падает 
-  } catch {
-    console.log('Элементы не появились, продолжаем выполнение теста');
-  }
-
-  // Удаляем все существующие event-types
-  await application.evenTypePage.deleteAllEventTypes();
-
   // Создаём новый ивент
   const newEventName : string = `string_${timestamp}`;
   await application.evenTypePage.createEventType(newEventName);
