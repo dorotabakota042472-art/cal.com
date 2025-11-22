@@ -1,7 +1,5 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './basePage';
-
-
 const now = new Date();
 
 export class GuestPage extends BasePage {
@@ -11,7 +9,7 @@ export class GuestPage extends BasePage {
    readonly email: Locator;
    readonly submit: Locator;
    readonly titleScheduled: Locator;
-  readonly firstAvailableTime: Locator;
+   readonly firstAvailableTime: Locator;
 
   constructor(guestPage: Page) {
     super(guestPage);

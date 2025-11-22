@@ -1,7 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './basePage';
 
-
 export class EvenTypePage extends BasePage {
   readonly TitleEventTypes: Locator;
   readonly eventTitle: Locator;
@@ -27,7 +26,6 @@ export class EvenTypePage extends BasePage {
     this.quickChatInput = page.getByTestId('event-type-quick-chat');
     this.continueButton = page.getByRole('button', { name: 'Continue' });
     this.goBackButton = page.getByTestId('go-back-button');
-
     this.copyLink = page.getByRole('button').filter({ hasText: /^$/ }).nth(1);//копируепм линку 
   }
 

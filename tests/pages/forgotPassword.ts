@@ -13,8 +13,6 @@ export class ForgotPassword extends BasePage {
     this.textboxEmail = page.getByRole('textbox', { name: 'john.doe@example.com' })
     this.sendReset = page.getByRole('button', { name: 'Send reset email' })
     this.resetlinkSent = page.locator('text=Reset link sent')
-
-   
   }
 
 
