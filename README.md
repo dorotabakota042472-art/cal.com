@@ -56,7 +56,7 @@ This repository contains automated tests for the Cal.com project.
 //Running Playwright tests within a Docker
 - Create a Dockerfile
 - Build the Docker Image - docker build -t playwright-tests .
-- Run the Docker Container and Execute Tests -  docker run --rm -v ${PWD}/tracec:/app/tracec playwright-tests
+- Run the Docker Container and Execute Tests -  docker run --rm playwright-tests npx playwright test tests/specs/login.spec.ts
 - To look at the report - npx playwright show-report --port=9323
 
 
