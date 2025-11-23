@@ -2,6 +2,8 @@ import { Page, Locator } from '@playwright/test';
 import { BasePage } from './basePage';
 import { expect } from '@playwright/test';
 
+const URL = process.env.CALCOM_BASE_URL
+
 export class LoginPage extends BasePage {
   readonly username: Locator;
   readonly password: Locator;
@@ -22,7 +24,7 @@ export class LoginPage extends BasePage {
   readonly forgot: Locator;
 
   constructor(page: Page) {
-    super(page, 'https://app.cal.com/auth/login');  //http://localhost:3000/auth/login   http://host.docker.internal:3000/auth/login https://app.cal.com/auth/login
+    super(page, `${URL}/auth/login`);  //http://localhost:3000/auth/login   http://host.docker.internal:3000/auth/login https://app.cal.com/auth/login
     this.username = page.getByRole('textbox', { name: 'john.doe@example.com' });
     this.password = page.getByTestId('input-field');
     this.loginButton = page.getByTestId('login-form').getByRole('button', { name: 'Sign in' });
@@ -49,7 +51,7 @@ export class LoginPage extends BasePage {
   }
 
   async checkLoginPageUrl() {
-    await expect(this.page).toHaveURL('https://app.cal.com/auth/login');
+    await expect(this.page).toHaveURL(`${URL}/auth/login`);
   }
 
 }

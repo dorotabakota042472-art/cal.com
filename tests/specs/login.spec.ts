@@ -2,10 +2,9 @@ import { test, expect } from '@playwright/test'; // экспортим моду�
 import { Application } from '../pages/aplication';
 import { users } from '../fixtures/users';
 
-let application: Application; // Объявляем переменную для работы с нашим "Application" переменная application может хранить только объекты типа Application (т.е. экземпляры этого класса).
-
+let application: Application; // Объявляем переменную для работы с нашим "Application" 
   test.beforeEach(async ({ page }) => { // запускаем перед каждым тестом 
-    application = new Application(page); // создаём экземпляр класса Application
+   application = new Application(page); // создаём экземпляр класса Application
    await application.loginPage.navigate(); // переходим на страницу 
    await application.loginPage.checkLoginPageUrl  // проверяем редирект 
   });
@@ -13,7 +12,7 @@ let application: Application; // Объявляем переменную для 
   test('Successful login with email/password', async ({ page }) => {
     await expect(page).toHaveTitle("Login | Cal.com");
     await application.loginPage.login(users.admin.email ,users.admin.password);
-   // await expect(page).toHaveURL('http://localhost:3000/event-types', { timeout: 10000 }); 
+    await expect(page).toHaveURL(`${URL}/event-types`, { timeout: 10000 }); 
   });
 
   test('Show/Hide password toggle', async ({ page }) => {
@@ -30,7 +29,7 @@ let application: Application; // Объявляем переменную для 
     await application.signup.signup(users.admin.username , users.admin.password ,users.admin.email );
     await application.signup.submitButton.click();
     await expect(application.signup.checkYourEmail).toHaveText('Check your email');
-   // await expect(page).toHaveURL('http://localhost:3000/auth/verify-email?from=signup');
+    await expect(page).toHaveURL(`${URL}/auth/verify-email?from=signup`);
   });
 
   test('Empty login and password fields', async ({ page }) => {
@@ -42,7 +41,7 @@ let application: Application; // Объявляем переменную для 
 
   test('Forgot password happy path – shows reset link sent', async ({ page }) => {
     await application.loginPage.forgot.click();
-    //await expect(page).toHaveURL('http://localhost:3000/auth/forgot-password');
+    await expect(page).toHaveURL(`${URL}/auth/forgot-password`);
     await expect(application.forgotPassword.titleForgotPassword).toHaveText('Forgot Password?');
     await application.forgotPassword.textboxEmail.fill('dorotabakota0424722@gmail.com');
     await application.forgotPassword.sendReset.click();

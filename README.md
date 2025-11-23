@@ -64,6 +64,10 @@ This repository contains automated tests for the Cal.com project.
 
 CAL_COM_API_KEY=YOUR_API_KEY_HERE
 
+//Instal dotenv
+- npm install -D @types/node
+- npm install -D dotenv   
+
 //After cloning the repository and installing dependencies, **be sure** to run
 ```bash
 - npx playwright test --project=setup
@@ -71,5 +75,4 @@ CAL_COM_API_KEY=YOUR_API_KEY_HERE
 
 
  //Установи зависимости: npm i @trpc/client superjson 
-
 

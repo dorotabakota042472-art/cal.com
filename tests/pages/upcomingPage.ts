@@ -1,16 +1,16 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './basePage';
 
+const URL = process.env.CALCOM_BASE_URL
+
 export class Upcoming extends BasePage {
   readonly bookings: Locator;
   readonly upcoming: Locator;
   readonly dropDownOpentio: Locator;
   readonly selector: Locator;
 
-
-
   constructor(page: Page) {
-    super(page, 'https://app.cal.com/bookings/upcoming'); 
+    super(page, `${URL}/bookings/upcoming`); 
 
     this.bookings = page.locator('[data-test-id="bookings"]')
     this.upcoming = page.locator('[data-test-id="upcoming"]')   

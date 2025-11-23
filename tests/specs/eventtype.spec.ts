@@ -4,8 +4,6 @@ import { GuestPage } from '../pages/guestPage';
 import { users } from '../fixtures/users';
 import { Upcoming } from '../pages/upcomingPage';
 
-
-
 let application: Application;
 const timestamp : number = Date.now();
 
@@ -36,8 +34,7 @@ test('Create event-types', async ({ page }) => {
 });
 
 
-
-test('Public booking flow', async ({ page }) => {
+test.only('Public booking flow', async ({ page }) => {
   // Создаём новый ивент
   const newEventName : string = `string_${timestamp}`;
   await application.evenTypePage.createEventType(newEventName);

@@ -1,6 +1,8 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './basePage';
 
+const URL = process.env.CALCOM_BASE_URL
+
 export class EvenTypePage extends BasePage {
   readonly TitleEventTypes: Locator;
   readonly eventTitle: Locator;
@@ -13,7 +15,7 @@ export class EvenTypePage extends BasePage {
   readonly copyLink: Locator;
 
   constructor(page: Page) {
-    super(page, 'https://app.cal.com/event-types'); 
+    super(page, `${URL}/event-types`); 
 
     this.TitleEventTypes = page.getByRole('heading', { name: 'Event Types' });
     this.eventTitle = page.locator('text=NewChet'); 
@@ -58,6 +60,6 @@ export class EvenTypePage extends BasePage {
   }
 
    async checkeventPageUrl() {
-    await expect(this.page).toHaveURL('https://app.cal.com/event-types');
+    await expect(this.page).toHaveURL(`${URL}/event-types`);
   }
 }

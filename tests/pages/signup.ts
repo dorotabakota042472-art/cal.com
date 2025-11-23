@@ -1,6 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './basePage';
 
+const URL = process.env.CALCOM_BASE_URL
 
 export class Signup extends BasePage {
   readonly signupUsernamefield: Locator;
@@ -12,7 +13,7 @@ export class Signup extends BasePage {
   readonly continueWithEmailButton: Locator;
 
   constructor(page: Page) {
-    super(page, 'https://app.cal.com/auth/login');  //http://localhost:3000/auth/login   http://host.docker.internal:3000/auth/login https://app.cal.com/auth/login
+    super(page, `${URL}/auth/login`);  //http://localhost:3000/auth/login   http://host.docker.internal:3000/auth/login https://app.cal.com/auth/login
       this.signupUsernamefield = page.getByTestId('signup-usernamefield')
       this.signupEmailfield = page.getByTestId('signup-emailfield')
       this.signupPasswordfield = page.getByTestId('signup-passwordfield')

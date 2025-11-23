@@ -1,4 +1,5 @@
 import { test, expect, request } from '@playwright/test';
+const URL = process.env.CALCOM_BASE_URL
 
 test('tRPC: get event types', async () => {
   const api = await request.newContext({ storageState: 'state/auth.json',}); // Создаём новый контекст API-запросов с сохранённой сессией 
@@ -16,7 +17,7 @@ test('tRPC: get event types', async () => {
     }
   };
 
-  const response = await api.get('https://app.cal.com/api/trpc/eventTypes/getEventTypesFromGroup', //делаем запрос на получение ивентов 
+  const response = await api.get(`${URL}/api/trpc/eventTypes/getEventTypesFromGroup`, //делаем запрос на получение ивентов 
     {
       params: {
         batch: 1,
@@ -57,7 +58,7 @@ test('tRPC: create event type', async ({}) => {
   };
 
   
-  const response = await api.post( 'https://app.cal.com/api/trpc/eventTypesHeavy/create?batch=1', // POST запрос на tRPC endpoint создания ивента
+  const response = await api.post( `${URL}/api/trpc/eventTypesHeavy/create?batch=1`, // POST запрос на tRPC endpoint создания ивента
     {
       data: input,
       headers: {

@@ -5,10 +5,9 @@
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -88,8 +87,9 @@ projects: [
   // ---------------------------------------
   {
     name: 'eventtype-auth',
-    testMatch: [/tests\/specs\/eventtype\.spec\.ts/, /tests\/api\/tRPC\.spec\.ts/, /tests\/api\/tRPCmockData\.spec\.ts/,
+    testMatch: [/tests\/specs\/eventtype\.spec\.ts/, /tests\/api\/trpc\.spec\.ts/, /tests\/api\/tRPCmockData\.spec\.ts/,
       /tests\/api\/trpc3\.spec\.ts/
+
      ],
     dependencies: ['setup'],        // запускаем setup перед тестами
     use: {
