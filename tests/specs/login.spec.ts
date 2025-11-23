@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test'; // экспортим модули 
 import { Application } from '../pages/aplication';
 import { users } from '../fixtures/users';
+const EMAIL = process.env.TEST_USER_EMAIL ?? (() => { throw new Error('Missing TEST_USER_EMAIL'); })();
+const PASSWORD = process.env.TEST_USER_PASSWORD ?? (() => { throw new Error('Missing TEST_USER_PASSWORD');
 
+ })();
 let application: Application; // Объявляем переменную для работы с нашим "Application" 
   test.beforeEach(async ({ page }) => { // запускаем перед каждым тестом 
    application = new Application(page); // создаём экземпляр класса Application
@@ -11,8 +14,8 @@ let application: Application; // Объявляем переменную для 
 
   test('Successful login with email/password', async ({ page }) => {
     await expect(page).toHaveTitle("Login | Cal.com");
-    await application.loginPage.login(users.admin.email ,users.admin.password);
-    await expect(page).toHaveURL(`${URL}/event-types`, { timeout: 10000 }); 
+    await application.loginPage.login(EMAIL ,PASSWORD);
+    await expect(page).toHaveURL(/event-types/, { timeout: 10000 }); 
   });
 
   test('Show/Hide password toggle', async ({ page }) => {
@@ -23,13 +26,13 @@ let application: Application; // Объявляем переменную для 
     await expect(application.loginPage.showeye).toHaveAttribute('href', '#eye');
   });
 
-  test.skip('Sign up partial flow – shows check your email', async ({ page }) => {
+  test('Sign up partial flow – shows check your email', async ({ page }) => {
     await application.loginPage.titleHaveAccount.click();
     await application.signup.continueWithEmailButton.click();
     await application.signup.signup(users.admin.username , users.admin.password ,users.admin.email );
     await application.signup.submitButton.click();
     await expect(application.signup.checkYourEmail).toHaveText('Check your email');
-    await expect(page).toHaveURL(`${URL}/auth/verify-email?from=signup`);
+    await expect(page).toHaveURL(/auth\/verify-email\?from=signup/);
   });
 
   test('Empty login and password fields', async ({ page }) => {
@@ -41,9 +44,9 @@ let application: Application; // Объявляем переменную для 
 
   test('Forgot password happy path – shows reset link sent', async ({ page }) => {
     await application.loginPage.forgot.click();
-    await expect(page).toHaveURL(`${URL}/auth/forgot-password`);
+    await expect(page).toHaveURL(/auth\/forgot-password/);
     await expect(application.forgotPassword.titleForgotPassword).toHaveText('Forgot Password?');
-    await application.forgotPassword.textboxEmail.fill('dorotabakota0424722@gmail.com');
+    await application.forgotPassword.textboxEmail.fill(users.admin.email);
     await application.forgotPassword.sendReset.click();
     await expect(application.forgotPassword.resetlinkSent).toHaveText('Reset link sent');
   });

@@ -35,7 +35,7 @@ export class LoginPage extends BasePage {
     this.titleEmile = page.locator('text=Email address')
     this.titlePassword = page.locator('text=Password').nth(0)
     this.titleHaveAccount = page.locator('text=Don\'t have an account?')
-    this.titleSignIn = page.locator('text=Sign in').nth(2)
+    this.titleSignIn = page.locator('text=Sign in')//.nth(2)
     this.enterAValidEmail = page.locator('text=Please enter a valid email')
     this.ShowPassword = page.getByRole('button', { name: 'Show password' })
     this.Hidepassword = page.getByRole('button', { name: 'Hide password' })

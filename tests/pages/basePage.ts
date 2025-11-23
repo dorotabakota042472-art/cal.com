@@ -15,7 +15,7 @@ export class BasePage {
   }
 
   // Получить текущий URL
-  async getUrl(): Promise<string> {
+  async getUrl() {
     return this.page.url();
   }
 

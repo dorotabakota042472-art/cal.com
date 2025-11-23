@@ -14,7 +14,7 @@ export class Upcoming extends BasePage {
 
     this.bookings = page.locator('[data-test-id="bookings"]')
     this.upcoming = page.locator('[data-test-id="upcoming"]')   
-    this.dropDownOpentio = page.locator('#react-select-2-option-3')  
+    this.dropDownOpentio = page.getByTestId('select-option-100')
     this.selector = page.locator('[data-testid="select-control"]');
   }
 

@@ -14,6 +14,13 @@ export class EvenTypePage extends BasePage {
   readonly goBackButton: Locator;
   readonly copyLink: Locator;
 
+  readonly advancedTab: Locator;
+  readonly privateLinksCheck: Locator;
+  readonly copyPriveteLink: Locator;
+  readonly updateЕventtype: Locator;
+  readonly addToCalendar: Locator;
+
+
   constructor(page: Page) {
     super(page, `${URL}/event-types`); 
 
@@ -29,6 +36,13 @@ export class EvenTypePage extends BasePage {
     this.continueButton = page.getByRole('button', { name: 'Continue' });
     this.goBackButton = page.getByTestId('go-back-button');
     this.copyLink = page.getByRole('button').filter({ hasText: /^$/ }).nth(1);//копируепм линку 
+
+    //проблемная линка 
+    this.advancedTab = page.getByTestId('vertical-tab-event_advanced_tab_title')
+    this.privateLinksCheck = page.getByTestId('multiplePrivateLinksCheck')
+    this.copyPriveteLink = page.locator('.group.whitespace-nowrap.inline-flex.items-center.font-medium.relative.rounded-\\[10px\\].disabled\\:cursor-not-allowed.gap-1.text-subtle.border.border-transparent.enabled\\:hover\\:bg-subtle.enabled\\:hover\\:text-emphasis.enabled\\:hover\\:border-subtle.hover\\:border.disabled\\:opacity-30.focus-visible\\:bg-subtle.focus-visible\\:outline-none.focus-visible\\:ring-0.focus-visible\\:border-subtle.focus-visible\\:shadow-button-outline-gray-focused.enabled\\:active\\:shadow-outline-gray-active.transition-shadow.duration-200.h-7.px-2')
+    this.updateЕventtype = page.getByTestId('update-eventtype')
+    this.addToCalendar = page.getByText('Add to calendar');
   }
 
 
@@ -51,6 +65,15 @@ export class EvenTypePage extends BasePage {
     await this.newEventTypeButton.click();
     await this.quickChatInput.fill(name);
     await this.continueButton.click();
+    
+    await this.advancedTab.click({ timeout: 10000 });
+    await this.advancedTab.click({ timeout: 10000 });
+    await new Promise(res => setTimeout(res, 5000));
+    await this.privateLinksCheck.waitFor({ state: 'visible', timeout: 10000 });
+    await this.privateLinksCheck.click({ timeout: 10000 });
+    await this.copyPriveteLink.scrollIntoViewIfNeeded();
+    await this.copyPriveteLink.click({ timeout: 10000 }); //копируем линку 
+    await this.updateЕventtype.click(); // сохраняем
     await this.goBackButton.click({ timeout: 10000 });
   }
 

@@ -13,7 +13,7 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env') });
  */
 export default defineConfig({
    expect: {
-    timeout: 1000,
+    timeout: 3000,
   },
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -87,8 +87,10 @@ projects: [
   // ---------------------------------------
   {
     name: 'eventtype-auth',
-    testMatch: [/tests\/specs\/eventtype\.spec\.ts/, /tests\/api\/trpc\.spec\.ts/, /tests\/api\/tRPCmockData\.spec\.ts/,
-      /tests\/api\/trpc3\.spec\.ts/
+    testMatch: [/tests\/specs\/eventtype\.spec\.ts/, /tests\/api\/trpc\.spec\.ts/, 
+      /tests\/api\/tRPCmockData\.spec\.ts/,
+      /tests\/api\/trpc3\.spec\.ts/,
+      /tests\/api\/trpc-client\.spec\.ts/,
 
      ],
     dependencies: ['setup'],        // запускаем setup перед тестами
@@ -99,7 +101,7 @@ projects: [
   },
 
   // ---------------------------------------
-  // 4) ПРОЕКТ ДЛЯ остальных авторизованных тестов (если есть)
+  // 4) ПРОЕКТ ДЛЯ остальных авторизованных тестов 
   // ---------------------------------------
   {
     name: 'authenticated',

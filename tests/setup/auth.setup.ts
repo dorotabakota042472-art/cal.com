@@ -8,7 +8,6 @@ const URL = process.env.CALCOM_BASE_URL ?? (() => { throw new Error('Missing URL
 const authFile = 'state/auth.json';        // ← сюда сохранится  localStorage
 
 setup('аутентификация пользователя', async ({ page }) => {
-  
   const application = new Application(page);
 
   // Переходим на страницу логина
@@ -17,7 +16,7 @@ setup('аутентификация пользователя', async ({ page }) 
   // Логинемся 
   // Ждём редиректа на event-types 
    await application.loginPage.login(EMAIL, PASSWORD);//'enterprise-member-11@example.com' ,'Vanda'   'janvandam933@gmail.com' ,'Aa80502558314'
-   await expect(page).toHaveURL(`${URL}/event-types`, { timeout: 10000 }); //http://localhost:3000/event-types
+   await expect(page).toHaveURL(`${URL}/event-types`, { timeout: 10000 }); 
 
   // Сохраняем состояние (cookies + localStorage)
   await page.context().storageState({ path: authFile });

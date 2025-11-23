@@ -7,7 +7,7 @@ export type User = {
 
 export const users: Record<string, User> = {
   admin: {
-    email: 'janvandam933@gmail.com', //  enterprise-member-11@example.com
+    email: `janvandam${timestamp}@gmail.com`, //  enterprise-member-11@example.com
     password: 'Aa80502558314', //    Vanda
     username: `string_${timestamp}`,
   },

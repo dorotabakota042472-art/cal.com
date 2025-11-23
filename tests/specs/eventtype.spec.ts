@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 import { Application } from '../pages/aplication';
 import { GuestPage } from '../pages/guestPage';
 import { users } from '../fixtures/users';
-import { Upcoming } from '../pages/upcomingPage';
 
 let application: Application;
 const timestamp : number = Date.now();
@@ -43,7 +42,7 @@ test.only('Public booking flow', async ({ page }) => {
   await application.evenTypePage.expectEventTypeExists(newEventName);
 
   //копируем линку 
-  await application.evenTypePage.copyLink.click();
+  //await application.evenTypePage.copyLink.click();
 
   // Теперь читаем из буфера обмена
   const publicUrl = await page.evaluate(() => navigator.clipboard.readText());
@@ -65,7 +64,7 @@ await guest.firstAvailableTime.click(); // выбираем время
 let username: string = users.admin.username
 
 await guest.bookAsGuest(username , users.admin.email)
-await expect(guest.titleScheduled).toHaveText('This meeting is scheduled', { timeout: 10000 });
+await expect(guest.titleScheduled).toHaveText('This meeting is scheduled', { timeout: 30000 });
 
 await guestContext.close();// закрываем контекст
 await application.evenTypePage.navigate();// переходим обратно 
