@@ -1,13 +1,16 @@
 import { test, expect } from '@playwright/test';
 import { users } from '../fixtures/users';
 
-const apiKey = process.env.TEST_USER_EMAI;
+const apiKey = process.env.CAL_COM_API_KEY;
+console.log(apiKey)
+const URL = process.env.CALCOM_BASE_URL
 
 test('create event type', async ({ request }) => {
-  const response = await request.post('https://api.cal.com/v2/event-types', {
+  const response = await request.post(`http://localhost:3000/v2/event-types`, {
     headers: {
       'Authorization': `Bearer ${apiKey}`,  
       'cal-api-version': '2024-06-14',   
+      'Content-Type': 'application/json',
     },
     data: {
       title: users.user1.username,

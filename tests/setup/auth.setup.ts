@@ -15,7 +15,7 @@ setup('аутентификация пользователя', async ({ page }) 
 
   // Логинемся 
   // Ждём редиректа на event-types 
-   await application.loginPage.login(EMAIL, PASSWORD);//'enterprise-member-11@example.com' ,'Vanda'   'janvandam933@gmail.com' ,'Aa80502558314'
+   await application.loginPage.login(EMAIL, PASSWORD);
    await expect(page).toHaveURL(`${URL}/event-types`, { timeout: 10000 }); 
 
   // Сохраняем состояние (cookies + localStorage)

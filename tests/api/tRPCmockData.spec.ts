@@ -8,27 +8,8 @@ let application: Application;
 const apiKey = process.env.TEST_USER_EMAI;
 const URL = process.env.CALCOM_BASE_URL
 
- 
-test.beforeEach(async ({ request }) => { // запускаем перед каждым тестом (создаем ивент)
-     
-      const response = await request.post(`${URL}/v2/event-types`, {
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,  
-          'cal-api-version': '2024-06-14',   
-        },
-        data: {
-          title: users.user1.username,
-          slug: users.user1.username,
-          lengthInMinutes: 60, 
-        },
-      });
-    
-    
-   
-  });
 
 test('tRPC mock: verify long event description is fully displayed', async ({ page }) => {
-  const description: string = "Ванда ".repeat(20); // создаём очень длинную строку
 
   await page.route('**/api/trpc/eventTypes/getEventTypesFromGroup**', async route => {// Перехватываем  запросы к endpoint getEventTypesFromGroup
 
@@ -92,6 +73,6 @@ await page.route('**/api/trpc/eventTypes/getEventTypesFromGroup**', async route 
  
   await application.evenTypePage.navigate();//переходим на страницу ивентов 
   // Проверяем что много сущностей реально появились
-  await expect(page.getByText('Fake Event 0')).toBeVisible();
-  await expect(page.getByText('Fake Event 199')).toBeVisible();
+  await expect(page.getByText('Fake Event 0')).toBeVisible({ timeout: 10000 });
+  await expect(page.getByText('Fake Event 199')).toBeVisible({ timeout: 10000 });
 });

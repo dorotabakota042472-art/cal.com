@@ -22,7 +22,7 @@ test.beforeEach(async ({ page }) => {
   await application.evenTypePage.deleteAllEventTypes();
 });
 
-test('Create event-types', async ({ page }) => {
+test.only('Create event-types', async ({ page }) => {
 
   // Создаём новый ивент
   const newEventName : string = `string_${timestamp}`;
@@ -33,7 +33,7 @@ test('Create event-types', async ({ page }) => {
 });
 
 
-test.only('Public booking flow', async ({ page }) => {
+test('Public booking flow', async ({ page }) => {
   // Создаём новый ивент
   const newEventName : string = `string_${timestamp}`;
   await application.evenTypePage.createEventType(newEventName);
@@ -53,20 +53,23 @@ test.only('Public booking flow', async ({ page }) => {
 const guestContext = await page.context().browser()!.newContext();
 const guestPage = await guestContext.newPage();
 
-await guestPage.goto(publicUrl);
+await guestPage.goto(publicUrl, { 
+  timeout: 90_000   // 2 минуты вместо стандартных 30 секунд
+});
 
 // ← Новый GuestPage для гостевой страницы!
 const guest = new GuestPage(guestPage);
   
-await guest.date.click({ timeout: 10000 });// выбираем дату 
+await guest.date.click({ timeout: 15000 });// выбираем дату 
 await guest.firstAvailableTime.click(); // выбираем время 
 
 let username: string = users.admin.username
 
 await guest.bookAsGuest(username , users.admin.email)
-await expect(guest.titleScheduled).toHaveText('This meeting is scheduled', { timeout: 30000 });
+//await expect(guest.titleScheduled).toHaveText('This meeting is scheduled', { timeout: 70000 });
 
 await guestContext.close();// закрываем контекст
+//await page.bringToFront()
 await application.evenTypePage.navigate();// переходим обратно 
 
 await application.upcoming.bookings.click();

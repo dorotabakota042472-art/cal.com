@@ -19,6 +19,7 @@ export class EvenTypePage extends BasePage {
   readonly copyPriveteLink: Locator;
   readonly updateЕventtype: Locator;
   readonly addToCalendar: Locator;
+  readonly advancedURL: string;
 
 
   constructor(page: Page) {
@@ -42,7 +43,8 @@ export class EvenTypePage extends BasePage {
     this.privateLinksCheck = page.getByTestId('multiplePrivateLinksCheck')
     this.copyPriveteLink = page.locator('.group.whitespace-nowrap.inline-flex.items-center.font-medium.relative.rounded-\\[10px\\].disabled\\:cursor-not-allowed.gap-1.text-subtle.border.border-transparent.enabled\\:hover\\:bg-subtle.enabled\\:hover\\:text-emphasis.enabled\\:hover\\:border-subtle.hover\\:border.disabled\\:opacity-30.focus-visible\\:bg-subtle.focus-visible\\:outline-none.focus-visible\\:ring-0.focus-visible\\:border-subtle.focus-visible\\:shadow-button-outline-gray-focused.enabled\\:active\\:shadow-outline-gray-active.transition-shadow.duration-200.h-7.px-2')
     this.updateЕventtype = page.getByTestId('update-eventtype')
-    this.addToCalendar = page.getByText('Add to calendar');
+    this.addToCalendar = page.getByText('Add to calendar').first();
+    this.advancedURL = 'http://localhost:3000/event-types/1242?tabName=advanced'
   }
 
 
@@ -65,11 +67,16 @@ export class EvenTypePage extends BasePage {
     await this.newEventTypeButton.click();
     await this.quickChatInput.fill(name);
     await this.continueButton.click();
+
+    await this.page.waitForTimeout(10000);
+    const current = await this.page.url();   
+    const next = current.replace(/tabName=[^&]+/, 'tabName=advanced');
+    await this.page.goto(next);
     
-    await this.advancedTab.click({ timeout: 10000 });
-    await this.advancedTab.click({ timeout: 10000 });
-    await new Promise(res => setTimeout(res, 5000));
+    await this.addToCalendar.waitFor({ state: 'visible', timeout: 30000 });
+
     await this.privateLinksCheck.waitFor({ state: 'visible', timeout: 10000 });
+    
     await this.privateLinksCheck.click({ timeout: 10000 });
     await this.copyPriveteLink.scrollIntoViewIfNeeded();
     await this.copyPriveteLink.click({ timeout: 10000 }); //копируем линку 

@@ -33,7 +33,9 @@ test('tRPC: get event types', async () => {
   console.log("STATUS:", response.status());// смотрим status code 
   const json = await response.json();
   console.log("RESPONSE:", JSON.stringify(json));//превращает объект в строку
-
+  
+  const eventTypes = json[0].result.data.json.eventTypes;
+  console.log("Count:", eventTypes.length);
   expect(response.ok()).toBeTruthy();// проверяем что запрос успешен
 });
 
