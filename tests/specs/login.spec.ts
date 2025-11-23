@@ -57,7 +57,7 @@ let application: Application; // Объявляем переменную для 
     await expect(application.loginPage.incorrectEmailPassword).toHaveText('Email or password is incorrect.', { timeout: 10000 });
   });
 
-  test.only('Invalid password', async ({ page }) => {
+  test('Invalid password', async ({ page }) => {
     await application.loginPage.login(users.admin.email, users.user1.password);
     await application.loginPage.checkLoginPageUrl
     await expect(application.loginPage.incorrectEmailPassword).toHaveText('Email or password is incorrect.', { timeout: 10000 });

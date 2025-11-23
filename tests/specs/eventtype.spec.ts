@@ -22,7 +22,7 @@ test.beforeEach(async ({ page }) => {
   await application.evenTypePage.deleteAllEventTypes();
 });
 
-test.only('Create event-types', async ({ page }) => {
+test('Create event-types', async ({ page }) => {
 
   // Создаём новый ивент
   const newEventName : string = `string_${timestamp}`;
