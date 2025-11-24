@@ -54,7 +54,7 @@ const guestContext = await page.context().browser()!.newContext();
 const guestPage = await guestContext.newPage();
 
 await guestPage.goto(publicUrl, { 
-  timeout: 90_000   // 2 минуты вместо стандартных 30 секунд
+  timeout: 90_000   // 2 минуты 
 });
 
 // ← Новый GuestPage для гостевой страницы!
@@ -69,7 +69,7 @@ await guest.bookAsGuest(username , users.admin.email)
 //await expect(guest.titleScheduled).toHaveText('This meeting is scheduled', { timeout: 70000 });
 
 await guestContext.close();// закрываем контекст
-//await page.bringToFront()
+
 await application.evenTypePage.navigate();// переходим обратно 
 
 await application.upcoming.bookings.click();
