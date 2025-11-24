@@ -11,7 +11,7 @@ setup('аутентификация пользователя', async ({ page }) 
   const application = new Application(page);
 
   // Переходим на страницу логина
-  await page.goto(`${URL}/auth/login`); //http://localhost:3000/auth/login
+  await page.goto(`${URL}/auth/login`); 
 
   // Логинемся 
   // Ждём редиректа на event-types 

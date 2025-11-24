@@ -13,7 +13,7 @@ export class GuestPage extends BasePage {
 
   constructor(guestPage: Page) {
     super(guestPage);
-    this.date = guestPage.getByRole('button', { name: `25` })//${now.getDate()}
+    this.date = guestPage.getByRole('button', { name: `${now.getDate()}`})
     this.name = guestPage.getByRole('textbox', { name: 'Your name*' }) 
     this.email = guestPage.getByRole('textbox', { name: 'Email address *' })
     this.submit = guestPage.getByTestId('confirm-book-button')

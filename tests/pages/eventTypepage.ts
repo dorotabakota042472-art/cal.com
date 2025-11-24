@@ -84,7 +84,7 @@ export class EvenTypePage extends BasePage {
     await this.goBackButton.click({ timeout: 10000 });
   }
 
-  async expectEventTypeExists(name: string) { // првоеряем что ивент есть 
+    async expectEventTypeExists(name: string) { // првоеряем что ивент есть 
     const event = this.page.locator(`text=${name}`).first();
     await expect(event).toBeVisible({ timeout: 10000 });
   }

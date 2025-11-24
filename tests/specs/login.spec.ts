@@ -26,7 +26,7 @@ let application: Application; // Объявляем переменную для 
     await expect(application.loginPage.showeye).toHaveAttribute('href', '#eye');
   });
 
-  test('Sign up partial flow – shows check your email', async ({ page }) => {
+  test.only('Sign up partial flow – shows check your email', async ({ page }) => {
     await application.loginPage.titleHaveAccount.click();
     await application.signup.continueWithEmailButton.click();
     await application.signup.signup(users.admin.username , users.admin.password ,users.admin.email );
